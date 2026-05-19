@@ -20,6 +20,75 @@
             bindings = <&kp>, <&kp>;
         };
     };
+    macros {
+        // Makro für das kleine ä (Compose -> " -> a)
+        macro_ae: macro_ae {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp RALT &kp DQT &kp A>;
+        };
+
+        // Makro für das große Ä (Compose -> " -> Shift+A)
+        macro_ae_cap: macro_ae_cap {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp RALT &kp DQT &kp LS(A)>;
+        };
+
+        // Makro für das kleine ö (Compose -> " -> o)
+        macro_oe: macro_oe {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp RALT &kp DQT &kp O>;
+        };
+
+        // Makro für das große Ö (Compose -> " -> Shift+O)
+        macro_oe_cap: macro_oe_cap {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp RALT &kp DQT &kp LS(O)>;
+        };
+
+        // Makro für das kleine ü (Compose -> " -> u)
+        macro_ue: macro_ue {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp RALT &kp DQT &kp U>;
+        };
+
+        // Makro für das große Ü (Compose -> " -> Shift+U)
+        macro_ue_cap: macro_ue_cap {
+            compatible = "zmk,behavior-macro";
+            #binding-cells = <0>;
+            bindings = <&kp RALT &kp DQT &kp LS(U)>;
+        };
+    };
+behaviors {
+        // Mod-Morph für ä / Ä
+        ae_morph: ae_morph {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&macro_ae>, <&macro_ae_cap>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+
+        // Mod-Morph für ö / Ö
+        oe_morph: oe_morph {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&macro_oe>, <&macro_oe_cap>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+
+        // Mod-Morph für ü / Ü
+        ue_morph: ue_morph {
+            compatible = "zmk,behavior-mod-morph";
+            #binding-cells = <0>;
+            bindings = <&macro_ue>, <&macro_ue_cap>;
+            mods = <(MOD_LSFT|MOD_RSFT)>;
+        };
+    };
+};
 
     keymap {
         compatible = "zmk,keymap";
@@ -50,8 +119,8 @@
             display-name = "Fn";
             bindings = <
 &kp F1  &kp F2  &kp F3      &kp F4            &kp F5      &kp F6  &tog 1                                      &mo 3   &kp F7  &kp F8           &kp F9             &kp F10          &kp F11  &kp F12
-&trans  &trans  &trans      &trans            &trans      &trans  &none                                       &none   &trans  &trans           &trans             &trans           &trans   &trans
-&trans  &trans  &kp C_PREV  &kp C_PLAY_PAUSE  &kp C_NEXT  &trans  &none   &trans  &trans      &trans  &trans  &none   &trans  &kp C_VOLUME_UP  &kp C_VOLUME_DOWN  &kp PRINTSCREEN  &trans   &trans
+&trans  &trans  &trans      &trans            &trans      &trans  &none                                       &none   &trans  &ue_morph           &trans             &oe_morph           &trans   &trans
+&trans  &ae_morph  &kp C_PREV  &kp C_PLAY_PAUSE  &kp C_NEXT  &trans  &none   &trans  &trans      &trans  &trans  &none   &trans  &kp C_VOLUME_UP  &kp C_VOLUME_DOWN  &kp PRINTSCREEN  &trans   &trans
 &trans  &trans  &trans      &trans            &trans      &trans                  &trans      &trans                  &trans  &trans           &trans             &trans           &trans   &trans
 &trans  &trans  &trans      &trans            &trans              &trans  &trans  &trans      &trans  &trans  &trans          &trans           &trans             &trans           &trans   &trans
             >;
